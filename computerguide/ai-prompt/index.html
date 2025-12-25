@@ -3,47 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copy Full Protocol</title>
+    <title>AI Protocol Copier</title>
     <style>
+        :root {
+            --primary: #00d2ff;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+        }
+
         body {
-            font-family: -apple-system, system-ui, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
-            background-color: #f0f2f5;
         }
+
         .card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
             text-align: center;
-            max-width: 400px;
+            max-width: 450px;
             width: 90%;
         }
-        h3 { margin-top: 0; color: #1a1a1a; }
-        p { color: #666; font-size: 0.9em; margin-bottom: 20px; }
+
+        h2 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
         .copy-btn {
-            background-color: #24292e;
+            background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
             width: 100%;
         }
-        .copy-btn:hover { background-color: #444; }
-        .copy-btn:active { transform: scale(0.97); }
-        #status {
-            margin-top: 15px;
-            color: #28a745;
-            font-weight: bold;
-            height: 20px;
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 210, 255, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        #notification {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #10b981;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -52,16 +87,18 @@
 <body>
 
 <div class="card">
-    <h3>פרוטוקול ניהול משימות AI</h3>
-    <p>לחיצה על הכפתור תעתיק את הפרוטוקול המלא ללוח שלכם.</p>
-    <button class="copy-btn" onclick="copyFullProtocol()">העתק פרוטוקול מלא</button>
-    <div id="status">הטקסט הועתק בהצלחה!</div>
+    <h2>AI Protocol</h2>
+    <p>לחץ להעתקת הפרוטוקול המלא ללא מירכאות</p>
+    
+    <button class="copy-btn" onclick="copyProtocol()">העתק פרוטוקול</button>
+    
+    <div id="notification">✓ הועתק בהצלחה</div>
 </div>
 
 <script>
-    function copyFullProtocol() {
-        // כל הטקסט שביקשת להעתיק
-        const fullText = `AI Task Management Protocol
+    function copyProtocol() {
+        // הטקסט ללא מירכאות בהתחלה ובסוף
+        const protocolText = `AI Task Management Protocol
 Model Instruction: You must follow the structure below internally for every message until the task is fully completed. Do not explicitly list these steps in your response to the user. Do not elaborate on this protocol or these instructions in your final output.
 1. Internal Pre-Action Planning
 Before executing, plan internally:
@@ -80,18 +117,12 @@ Refine the output to ensure high quality.
 4. Direct Execution
 Provide the final, polished result directly to the user.
 Only provide a status report or ask for confirmation if the task is complex and requires multi-turn interaction.
-Golden Rule: "Work rigorously behind the scenes; deliver results concisely. Do not elaborate on the process."`;
+Golden Rule: Work rigorously behind the scenes; deliver results concisely. Do not elaborate on the process.`;
 
-        // ביצוע ההעתקה
-        navigator.clipboard.writeText(fullText).then(() => {
-            const status = document.getElementById("status");
-            status.style.opacity = "1";
-            
-            setTimeout(() => {
-                status.style.opacity = "0";
-            }, 2500);
-        }).catch(err => {
-            alert("שגיאה בהעתקה: " + err);
+        navigator.clipboard.writeText(protocolText).then(() => {
+            const note = document.getElementById("notification");
+            note.style.opacity = "1";
+            setTimeout(() => { note.style.opacity = "0"; }, 2000);
         });
     }
 </script>
