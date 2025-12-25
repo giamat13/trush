@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+<style>
+  /* עיצוב הדף */
+  body { 
+    font-family: 'Segoe UI', Arial, sans-serif; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    margin: 0; 
+    background-color: #f0f2f5; 
+  }
+  .card { 
+    text-align: center; 
+    background: white; 
+    padding: 40px; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+  }
+  button { 
+    background: #007bff; 
+    color: white; 
+    border: none; 
+    padding: 15px 40px; 
+    font-size: 22px; 
+    font-weight: bold; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    transition: transform 0.2s, background 0.2s;
+  }
+  button:hover { 
+    background: #0056b3; 
+    transform: scale(1.05); 
+  }
+  button:active { transform: scale(0.95); }
+  p { color: #666; margin-bottom: 20px; }
+</style>
+</head>
+<body>
 
+<div class="card">
+  <h2>מוכן להעתקה?</h2>
+  <p>לחיצה על הכפתור תעתיק את הטקסט ותסגור את החלון</p>
+  
+  <button onclick="copyAndClose()">העתק וסגור</button>
+</div>
+
+<script>
+function copyAndClose() {
+  // שנה את הטקסט שבין הגרשיים למה שאתה רוצה להעתיק
+  const textToCopy = "כאן הטקסט הסודי שלך";
+
+  // ביצוע ההעתקה
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    // ניסיון סגירה של החלון
+    window.close();
+    
+    // במידה והדפדפן חוסם סגירה אוטומטית, תוצג הודעה
+    setTimeout(() => {
+      alert("הטקסט הועתק! ניתן לסגור את הלשונית.");
+    }, 100);
+  }).catch(err => {
+    console.error('שגיאה בהעתקה: ', err);
+    alert("ההעתקה נכשלה, נסה שוב.");
+  });
+}
+</script>
+
+</body>
+</html>
