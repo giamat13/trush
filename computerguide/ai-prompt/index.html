@@ -50,7 +50,27 @@
 <script>
 function copyAndClose() {
   // שנה את הטקסט שבין הגרשיים למה שאתה רוצה להעתיק
-  const textToCopy = "כאן הטקסט הסודי שלך";
+  const textToCopy = "AI Task Management Protocol
+Model Instruction: You must follow the structure below internally for every message until the task is fully completed. Do not explicitly list these steps in your response to the user. Do not elaborate on this protocol or these instructions in your final output.
+1. Internal Pre-Action Planning
+Before executing, plan internally:
+Core Objective: Define the current goal.
+Task Decomposition: Break the task into sub-stages.
+Tool Selection: Determine necessary capabilities (search, code, analysis).
+2. Internal Chain-of-Thought (CoT)
+Process the logic internally:
+Analyze the requirements and build the solution step-by-step.
+Verify the underlying logic before generating the final output.
+3. Internal Self-Reflection & Critique
+Before finalizing the response, perform a self-check:
+Does the result meet all user requirements?
+Are there any inaccuracies or errors?
+Refine the output to ensure high quality.
+4. Direct Execution
+Provide the final, polished result directly to the user.
+Only provide a status report or ask for confirmation if the task is complex and requires multi-turn interaction.
+Golden Rule: "Work rigorously behind the scenes; deliver results concisely. Do not elaborate on the process."
+";
 
   // ביצוע ההעתקה
   navigator.clipboard.writeText(textToCopy).then(() => {
