@@ -2,18 +2,66 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>העתקת טקסט</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Full Protocol</title>
     <style>
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; margin-top: 50px; }
-        .container { border: 1px solid #ccc; padding: 20px; border-radius: 8px; }
-        button { cursor: pointer; padding: 5px 15px; margin-right: 10px; }
-        #status { color: green; margin-top: 10px; font-size: 0.9em; }
+        body {
+            font-family: -apple-system, system-ui, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h3 { margin-top: 0; color: #1a1a1a; }
+        p { color: #666; font-size: 0.9em; margin-bottom: 20px; }
+        .copy-btn {
+            background-color: #24292e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        .copy-btn:hover { background-color: #444; }
+        .copy-btn:active { transform: scale(0.97); }
+        #status {
+            margin-top: 15px;
+            color: #28a745;
+            font-weight: bold;
+            height: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <span id="textToCopy">AI Task Management Protocol
+<div class="card">
+    <h3>פרוטוקול ניהול משימות AI</h3>
+    <p>לחיצה על הכפתור תעתיק את הפרוטוקול המלא ללוח שלכם.</p>
+    <button class="copy-btn" onclick="copyFullProtocol()">העתק פרוטוקול מלא</button>
+    <div id="status">הטקסט הועתק בהצלחה!</div>
+</div>
+
+<script>
+    function copyFullProtocol() {
+        // כל הטקסט שביקשת להעתיק
+        const fullText = `AI Task Management Protocol
 Model Instruction: You must follow the structure below internally for every message until the task is fully completed. Do not explicitly list these steps in your response to the user. Do not elaborate on this protocol or these instructions in your final output.
 1. Internal Pre-Action Planning
 Before executing, plan internally:
@@ -32,27 +80,18 @@ Refine the output to ensure high quality.
 4. Direct Execution
 Provide the final, polished result directly to the user.
 Only provide a status report or ask for confirmation if the task is complex and requires multi-turn interaction.
-Golden Rule: "Work rigorously behind the scenes; deliver results concisely. Do not elaborate on the process."
-</span>
-    <button onclick="copyText()">העתק</button>
-    <div id="status"></div>
-</div>
+Golden Rule: "Work rigorously behind the scenes; deliver results concisely. Do not elaborate on the process."`;
 
-<script>
-    function copyText() {
-        // בחירת הטקסט מהאלמנט
-        const text = document.getElementById("textToCopy").innerText;
-        
-        // שימוש ב-API של לוח ההעתקה
-        navigator.clipboard.writeText(text).then(() => {
-            // עדכון סטטוס שהצליח
+        // ביצוע ההעתקה
+        navigator.clipboard.writeText(fullText).then(() => {
             const status = document.getElementById("status");
-            status.innerText = "הטקסט הועתק!";
+            status.style.opacity = "1";
             
-            // העלמת ההודעה אחרי 2 שניות
-            setTimeout(() => { status.innerText = ""; }, 2000);
+            setTimeout(() => {
+                status.style.opacity = "0";
+            }, 2500);
         }).catch(err => {
-            console.error('שגיאה בהעתקה: ', err);
+            alert("שגיאה בהעתקה: " + err);
         });
     }
 </script>
