@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>מחולל טקסט משתנה</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #333;
+            min-height: 80px; /* שומר על מקום קבוע לטקסט */
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="text-display">לחץ על הכפתור כדי להתחיל!</h1>
+        <button onclick="changeText()">שנה טקסט</button>
+    </div>
+
+    <script>
+        // רשימת המשפטים שישתנו
+        const sentences = [
+            "היום הוא יום מצוין ללמוד משהו חדש!",
+            "התמדה היא המפתח להצלחה.",
+            "הקוד הזה עובד בזכותך!",
+            "צריך תמיד להסתכל על חצי הכוס המלאה.",
+            "כל מסע גדול מתחיל בצעד אחד קטן.",
+            "פיצה היא תמיד רעיון טוב."
+        ];
+
+        function changeText() {
+            // בחירת אלמנט הטקסט
+            const textElement = document.getElementById('text-display');
+            
+            // בחירת משפט אקראי מהרשימה
+            const randomIndex = Math.floor(Math.random() * sentences.length);
+            const newText = sentences[randomIndex];
+
+            // עדכון הטקסט בדף
+            textElement.innerText = newText;
+        }
+    </script>
+
+</body>
+</html>
