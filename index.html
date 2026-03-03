@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>מחולל טקסט עם זיכרון (Cookies)</title>
+    <title>דף בדיקה</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -40,15 +40,12 @@
             transition: background 0.3s;
         }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+        button:hover { background-color: #0056b3; }
     </style>
 </head>
-<body onload="checkCookie()">
-
+<body>
     <div class="container">
-        <h1 id="text-display">לחץ על הכפתור כדי להתחיל!</h1>
+        <h1 id="text-display">טוען...</h1>
         <button onclick="changeText()">שנה טקסט</button>
     </div>
 
@@ -62,47 +59,22 @@
             "פיצה היא תמיד רעיון טוב."
         ];
 
-        // פונקציה לשינוי הטקסט ושמירתו ב-Cookie
+        let lastIndex = -1;
+
+        function getRandomText() {
+            let index;
+            do { index = Math.floor(Math.random() * sentences.length); }
+            while (index === lastIndex);
+            lastIndex = index;
+            return sentences[index];
+        }
+
         function changeText() {
-            const textElement = document.getElementById('text-display');
-            const randomIndex = Math.floor(Math.random() * sentences.length);
-            const newText = sentences[randomIndex];
-
-            textElement.innerText = newText;
-
-            // שמירת המשפט בעוגייה למשך 30 יום
-            setCookie("lastSentence", newText, 30);
+            document.getElementById('text-display').innerText = getRandomText();
         }
 
-        // פונקציה ליצירת עוגייה
-        function setCookie(name, value, days) {
-            const d = new Date();
-            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
-            let expires = "expires=" + d.toUTCString();
-            // encodeURIComponent מטפל בתווים בעברית בצורה תקינה
-            document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
-        }
-
-        // פונקציה לקבלת ערך מעוגייה
-        function getCookie(name) {
-            let nameEQ = name + "=";
-            let ca = document.cookie.split(';');
-            for(let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1);
-                if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
-            }
-            return null;
-        }
-
-        // פונקציה שמופעלת בטעינת הדף
-        function checkCookie() {
-            let lastSavedText = getCookie("lastSentence");
-            if (lastSavedText != null) {
-                document.getElementById('text-display').innerText = lastSavedText;
-            }
-        }
+        // טקסט רנדומלי חדש בכל טעינה
+        changeText();
     </script>
-
 </body>
 </html>
